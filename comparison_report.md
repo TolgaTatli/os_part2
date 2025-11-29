@@ -44,13 +44,15 @@ An object-oriented design paradigm that makes use of BoundedBuffer encapsulation
 Improved concern separation and modular design
 Implicit thread management lessens mental strain
 
-### 3. Deadlock Prevention and Safety Analysis **Assessment Result: When used correctly, Pthreads provides more robust deadlock avoidance**
+### 3. Deadlock Prevention and Safety Analysis 
+
+Result: When used correctly pthreads provides more robust deadlock avoidance
 
  Pthreads Synchronization Security:
- - Makes use of semaphore technologies, which naturally avoid producer-consumer patterns' deadlock situations.
- The semaphores "empty" and "full" provide correct synchronization in the absence of circular wait circumstances.
+  Makes use of semaphore technologies, which naturally avoid producer-consumer patterns' deadlock situations.
+ The semaphores "empty" and "full' provide correct synchronization in the absence of circular wait circumstances.
  An established and tried-and-true deadlock pattern -free implementations between producers and consumers  
- - A clear distinction between mutual exclusion (mutex locks) and resource counting techniques (semaphores)
+ A clear distinction between mutual exclusion (mutex locks) and resource counting techniques (semaphores)
 
  OpenMP Synchronization Considerations: - Relies on the polling mechanism method, which may show features of decreased efficiency
  Inadequate architecture and management may lead to lock contention problems. A busy-waiting implementation style may cause performance reduction.  
@@ -58,25 +60,25 @@ Implicit thread management lessens mental strain
 ## Performance Evaluation and Analysis
 
 ### Pthreads Performance Characteristics
-- **Advantages**: Minimized overhead due to direct system call interface, fine-grained control over thread behavior and scheduling
-- **Limitations**: Increased code complexity requiring manual optimization efforts, potential for human error in synchronization logic
+- Avantages: Minimized overhead due to direct system call interface, fine-grained control over thread behavior and scheduling
+- Limitations: Increased code complexity requiring manual optimization efforts, potential for human error in synchronization logic
 
 ### OpenMP Performance Profile  
-- **Advantages**: Compiler-level optimizations and automatic parallelization, simplified integration with existing sequential codebases
-- **Limitations**: Higher abstraction overhead costs, reduced granular control over individual thread behaviors and scheduling decisions
+- Advantages: Compiler-level optimizations and automatic parallelization, simplified integration with existing sequential codebases
+- Limitations: Higher abstraction overhead costs, reduced granular control over individual thread behaviors and scheduling decisions
 
-## Synchronization Mechanism Technical Analysis
+## Synchronization Mechanism Technicial Analyse
 
 ### Pthreads Synchronization Architecture Explanation
 The implementation employs a multi-layered synchronization strategy:
-1. **Semaphore `empty`**: Monitors available buffer slot count (initialized to BUFFER_SIZE value)
-2. **Semaphore `full`**: Tracks occupied buffer positions (initialized to zero)  
-3. **Mutex `mutex`**: Provides critical section protection for buffer access operations
-4. **Mutex `stats_mutex`**: Guards shared statistical variable modifications
+1. **Semaphore : empty : Monitors available buffer slot count (initialized to BUFFER_SIZE value)
+2. **Semaphore : full: Tracks occupied buffer positions (initialized to zero)  
+3.  mutex: Provides critical section protection for buffer access operations
+4. Mutex stats_mutex: Guards shared statistical variable modifications
 
 The semaphore-based methodology ensures several key safety properties:
-- Producer threads block execution when buffer reaches capacity (`sem_wait(&empty)` operation)
-- Consumer threads suspend when buffer becomes empty (`sem_wait(&full)` operation)  
+- Producer threads block execution when buffer reaches capacity
+- Consumer threads suspend when buffer becomes empty   
 - Race condition elimination in buffer access through mutex protection mechanisms
 
 ### OpenMP Synchronization Framework Analysis  
@@ -92,32 +94,32 @@ The polling-based approach characteristics:
 
 ## Implementation Recommendations and Best Practices
 
-1. ** Educational Purposes**: Initiate learning with Pthreads implementation to gain fundamental understanding of low-level synchronization primitives and thread management concepts
-2. ** Production Environments**: Consider OpenMP for rapid prototyping and development cycles, while evaluating Pthreads for performance-critical applications requiring fine-tuned control
-3. Long-term Maintenance**: OpenMP implementations generally demonstrate superior maintainability characteristics and extensibility features  
+1. Educational Purpose: Initiate learning with Pthreads implementation to gain fundamental understanding of low-level synchronization primitives and thread management concepts
+2. Production Environments: Consider OpenMP for rapid prototyping and development cycles, while evaluating Pthreads for performance-critical applications requiring fine-tuned control
+3. Long-term Maintenance: OpenMP implementations generally demonstrate superior maintainability characteristics and extensibility features  
 4. Cross-Platform Compatibility: Both approaches offer portability advantages, however OpenMP enjoys broader compiler ecosystem support across various development environments
 
 ## Experimental Conclusions and Summary
 
-Both implementation approaches successfully address the Producer-Consumer synchronization problem with bounded buffer constraints and multiple concurrent producer/consumer entities. The selection between methodologies depends heavily on specific project requirements and constraints:
+Both implementation approaches successfully address sthe Producer-Consumer synchronization problem with bounded buffer constraints and multiple concurrent producer/consumer entities. The selection between methodologies depends heavily on specific project requirements and constraints:
 
-- **Select Pthreads** when maximum performance optimization and granular thread control are paramount concerns
-- **Select OpenMP** when rapid development cycles and code maintainability are prioritized objectives
+- Select Pthreads when maximum performance optimization and granular thread control are paramount concerns
+- Select OpenMP when rapid development cycles and code maintainability are prioritized objectives
 
 The Pthreads implementation demonstrates classical synchronization techniques and low-level thread management, while the OpenMP approach showcases contemporary parallel programming methodologies and compiler-assisted optimizations.
 
 ## Technical Justification of Synchronization Mechanisms
 
 ### Pthreads Justification
-Our Pthreads implementation employs a proven synchronization pattern that has been extensively validated in production systems. The combination of semaphores and mutexes provides:
-- **Correctness**: The semaphore counting mechanism ensures that producers and consumers cannot violate buffer boundaries
-- **Efficiency**: Direct system calls minimize synchronization overhead  
-- **Safety**: The established semaphore pattern is mathematically proven to be deadlock-free in producer-consumer scenarios
+Our Pthreads implementation employs a proven synchronization pattern that has been extensively validated in production systems. The combination of semaphores and mutexes provides
+- Correctness: The semaphore counting mechanism ensures that producers and consumers cannot violate buffer boundaries
+- Efficiency: Direct system calls minimize synchronization overhead  
+- Safety : The established semaphore pattern is mathematically proven to be deadlock-free in producer-consumer scenarios
 
-### OpenMP Justification  
-The OpenMP implementation strategy prioritizes development productivity while maintaining correctness:
-- **Simplicity**: Reduced complexity lowers the probability of synchronization errors
-- **Portability**: OpenMP directives are standardized across multiple compiler implementations
-- **Optimization**: Compiler-level optimizations can automatically improve performance characteristics
+### OpenMP Justificition  
+The OpenMP implementation strategy prioritizes development productivity while maintaining correctness
+- Simplicity: Reduced complexity lowers the probability of synchronization errors
+- Portabilite: OpenMP directives are standardized across multiple compiler implementations
+- Optimization: Compiler-level optimizations can automatically improve performance characteristics
 
-However, the polling approach in our OpenMP implementation represents a trade-off between simplicity and efficiency, which may not be optimal for all use cases but serves well for educational and prototyping purposes. 
+However the polling approach in our OpenMP implementation represents a trade-off between simplicity and efficiency, which may not be optimal for all use cases but serves well for educational and prototyping purposes. 
