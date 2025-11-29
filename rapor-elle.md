@@ -13,9 +13,9 @@ Implmentation Details and Architectur
 
 Pthreads Approach
 Our first implmentation uses POSIX threads libary that provide low-level thread managment. The synchronizaton strategy use:
-- Synchronizaton Primitves: We use semaphores (sem_t) with mutex locks (pthread_mutex_t) for thread-safe operatons
+- Synchronizaton Primitves: We use semaphores (sem_t) with mutex locks (pthread_mutex_t) for thread-safe operations
 - Thread Managment: Manual thread creation and terminaton using pthread_create() and pthread_join() 
-- Buffer Architectur: Circular buffer structur with explicit index tracking for read/write operatons
+- Buffer Architectur: Circular buffer structur with explicit index tracking for read/write operations
 
 OpenMP Stratey
 Second approach use OpenMP which offer compiler-based parallel programing directves. Key components:
